@@ -3,11 +3,11 @@ using LibraryMangementSystem.Models;
 
 namespace LibraryMangementSystem.Repository
 {
-    public class BookRepositorycs : IBookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly AppDbContext context;
 
-        public BookRepositorycs(AppDbContext context)
+        public BookRepository(AppDbContext context)
         {
             this.context = context;
         }

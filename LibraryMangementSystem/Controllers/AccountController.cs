@@ -30,7 +30,7 @@ namespace LibraryMangementSystem.Controllers
                 applicationUser.PasswordHash = registerViewModel.Password;
 
                 IdentityResult result = await userManager.CreateAsync(applicationUser, registerViewModel.Password);
-                if (result.Succeeded) 
+                if (result.Succeeded)  
                 {
                     // assign to role
                     await userManager.AddToRoleAsync(applicationUser, "Members");
