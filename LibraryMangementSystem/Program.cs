@@ -22,7 +22,7 @@ namespace LibraryMangementSystem
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
-            builder.Services.AddScoped<IBookRepository, BookRepositorycs>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
 
             var app = builder.Build();
 
