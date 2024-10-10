@@ -10,7 +10,7 @@ namespace LibraryMangementSystem.Migrations
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
+        { 
             migrationBuilder.InsertData(
                 table: "Books",
                 columns: new[] { "Title", "Image", "Author", "Genre", "ISBN", "PublishedYear", "AvailableCopies" },
