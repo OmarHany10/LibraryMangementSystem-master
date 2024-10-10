@@ -1,4 +1,5 @@
 ﻿using LibraryMangementSystem.Models;
+using LibraryMangementSystem.Repository;
 using LibraryMangementSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ namespace LibraryMangementSystem.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IMemberRepository memberRepository;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMemberRepository memberRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.memberRepository = memberRepository;
         }
         public IActionResult Register()
         {
@@ -32,8 +35,19 @@ namespace LibraryMangementSystem.Controllers
                 IdentityResult result = await userManager.CreateAsync(applicationUser, registerViewModel.Password);
                 if (result.Succeeded)  
                 {
-                    // assign to role
+                    // assign to role member
                     await userManager.AddToRoleAsync(applicationUser, "Members");
+                    Member member = new Member{
+                        FirstName = registerViewModel.FirstName,
+                        LastName = registerViewModel.LastName,
+                        PhoneNumber = registerViewModel.Phone,
+                        Email = registerViewModel.UserName,
+                        DateOfBirth = registerViewModel.DateOfBearth,
+                        Address = registerViewModel.Address,
+                        RegistrationDate = DateTime.Now,
+                    };
+                    memberRepository.Add(member);
+                    memberRepository.Save();
 
                     await signInManager.SignInAsync(applicationUser, isPersistent: false);
                     return RedirectToAction("Index", "Home");

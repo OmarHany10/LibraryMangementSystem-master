@@ -11,6 +11,6 @@
         public DateTime DateOfBirth { get; set; }
         public DateTime RegistrationDate { get; set; }
 
-        public ICollection<Checkout> Checkouts { get; set; }
+        public ICollection<Checkout>? Checkouts { get; set; }
     }
 }

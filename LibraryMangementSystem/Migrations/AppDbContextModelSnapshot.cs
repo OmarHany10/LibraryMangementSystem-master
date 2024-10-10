@@ -126,7 +126,7 @@ namespace LibraryMangementSystem.Migrations
 
                     b.HasKey("BookId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("LibraryMangementSystem.Models.Checkout", b =>
@@ -158,7 +158,7 @@ namespace LibraryMangementSystem.Migrations
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("Checkouts");
+                    b.ToTable("Checkouts", (string)null);
                 });
 
             modelBuilder.Entity("LibraryMangementSystem.Models.Member", b =>
@@ -197,7 +197,7 @@ namespace LibraryMangementSystem.Migrations
 
                     b.HasKey("MemberId");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
                 });
 
             modelBuilder.Entity("LibraryMangementSystem.Models.Penalty", b =>
@@ -222,7 +222,7 @@ namespace LibraryMangementSystem.Migrations
                     b.HasIndex("CheckoutId")
                         .IsUnique();
 
-                    b.ToTable("Penalties");
+                    b.ToTable("Penalties", (string)null);
                 });
 
             modelBuilder.Entity("LibraryMangementSystem.Models.Return", b =>
@@ -250,7 +250,7 @@ namespace LibraryMangementSystem.Migrations
                     b.HasIndex("CheckoutId")
                         .IsUnique();
 
-                    b.ToTable("Returns");
+                    b.ToTable("Returns", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
