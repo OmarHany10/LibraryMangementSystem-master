@@ -15,6 +15,8 @@ namespace LibraryMangementSystem.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Return(int checkoutId)
         {
             var checkout = await _context.Checkouts
