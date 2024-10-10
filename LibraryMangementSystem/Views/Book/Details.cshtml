@@ -6,7 +6,7 @@
 
 <h1>Details</h1>
 
-<div>
+@* <div>
     <h4>Book</h4>
     <hr />
     <dl class="row">
@@ -56,4 +56,19 @@
 </div>
 <div>
     <a asp-action="Index">Back to List</a>
+</div> *@
+
+<div class="card" style="width: 20rem; ">
+  <img class="card-img-top" src="/Images/@Model.Image" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Book Title :&nbsp @Model.Title</h5>
+    <h5 class="card-title"> Author :&nbsp @Model.Author</h5>
+    <h5 class="card-title"> Genre :&nbsp @Model.Genre</h5>
+    <h5 class="card-title"> ISBN :&nbsp @Model.ISBN</h5>
+    <h5 class="card-title"> PublishedYear :&nbsp @Model.PublishedYear</h5>
+    <h5 class="card-title"> AvailableCopies :&nbsp @Model.AvailableCopies</h5>
+    
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+  </div>
+   
 </div>

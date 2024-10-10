@@ -1,0 +1,25 @@
+﻿<table>
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Member</th>
+            <th>Checkout Date</th>
+            <th>Due Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Return in Model)
+        {
+            <tr>
+                <td>@Return.Book.Title</td>
+                <td>@Return.Member.Name</td>
+                <td>@Return.CheckoutDate.ToShortDateString()</td>
+                <td>@Return.DueDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Return" asp-route-checkoutId="@Return.CheckoutId">Return Book</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

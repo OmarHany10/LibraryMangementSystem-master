@@ -16,5 +16,6 @@ namespace LibraryMangementSystem.Data.config
                 .WithOne(b => b.Book)
                 .HasForeignKey(b => b.BookId);
         }
+       
     }
 }
