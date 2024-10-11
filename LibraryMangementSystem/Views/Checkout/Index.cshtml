@@ -13,6 +13,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <a asp-action="Penalty">Show Penalty</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -25,9 +28,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DueDate)
             </th>
-            <th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.ReturnDate)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Member.FirstName)
             </th>
@@ -52,9 +55,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DueDate)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.ReturnDate)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Member.FirstName)
             </td>

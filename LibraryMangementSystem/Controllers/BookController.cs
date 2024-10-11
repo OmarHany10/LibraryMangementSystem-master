@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMangementSystem.Controllers
 {
-    [Authorize(Roles = "Librarians")]
+    [Authorize(Roles = "Admin, Librarians")]
     public class BookController : Controller
     {
         private readonly IBookRepository bookRepository;

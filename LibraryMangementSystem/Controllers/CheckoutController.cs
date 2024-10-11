@@ -97,24 +97,159 @@ namespace LibraryMangementSystem.Controllers
                 checkout.Book.AvailableCopies += 1; // Increase available copies
 
                 // Calculate penalty based on late days
+
+                // Calculate the number of late days
                 var lateDays = (returnEntry.ReturnDate - checkout.DueDate).Days;
+
+                // Initialize penalty amount
+                decimal penaltyAmount = 0;
+                Penalty penalty = null;
+
                 if (lateDays > 0)
                 {
                     returnEntry.LateDays = lateDays;
-                    returnEntry.PenaltyAmount = lateDays * 1; // $1 penalty per late day
+
+                    // If there's already a Penalty object for this checkout, update it
+                    if (checkout.Penalty != null)
+                    {
+                        penalty = checkout.Penalty;
+
+                        // Apply penalty only if late days exceed the threshold
+                        if (lateDays > penalty.LateDaysThreshold)
+                        {
+                            var daysWithPenalty = lateDays - penalty.LateDaysThreshold;
+                            penaltyAmount = daysWithPenalty * penalty.PenaltyAmount;
+                        }
+                        else
+                        {
+                            penaltyAmount = 0; // No penalty if within the threshold
+                        }
+
+                        // Update the penalty object
+                        penalty.PenaltyAmount = penaltyAmount;
+                    }
+                    else
+                    {
+                        // Create a new Penalty object if it doesn't exist
+                        penalty = new Penalty
+                        {
+                            LateDaysThreshold = 1, // Set your desired threshold here
+                            PenaltyAmount = 2, // Default penalty per day (for example, $2 per day)
+                            CheckoutId = checkout.CheckoutId
+                        };
+
+                        if (lateDays > penalty.LateDaysThreshold)
+                        {
+                            var daysWithPenalty = lateDays - penalty.LateDaysThreshold;
+                            penalty.PenaltyAmount = daysWithPenalty * penalty.PenaltyAmount;
+                        }
+                        else
+                        {
+                            penalty.PenaltyAmount = 0; // No penalty if within the threshold
+                        }
+
+                        // Add new penalty record
+                        _context.Penalties.Add(penalty);
+                    }
+
+                    returnEntry.PenaltyAmount = penalty.PenaltyAmount;
                 }
                 else
                 {
+                    // No late days, no penalty
                     returnEntry.LateDays = 0;
                     returnEntry.PenaltyAmount = 0;
                 }
 
+             
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////
+                #region CalculatePenalityWithMinutes
+
+                //// Calculate the number of late minutes
+                //var lateMinutes = (returnEntry.ReturnDate - checkout.DueDate).TotalMinutes;
+
+                //// Initialize penalty amount
+                //decimal penaltyAmount = 0;
+                //Penalty penalty = null;
+
+                //if (lateMinutes > 0)
+                //{
+                //    returnEntry.LateDays = (int)Math.Floor(lateMinutes / 1440); // Convert minutes to days for logging purposes (optional)
+
+                //    // If there's already a Penalty object for this checkout, update it
+                //    if (checkout.Penalty != null)
+                //    {
+                //        penalty = checkout.Penalty;
+
+                //        // Apply penalty based on minutes
+                //        if (lateMinutes > penalty.LateDaysThreshold * 1440) // Convert LateDaysThreshold to minutes
+                //        {
+                //            var minutesWithPenalty = (decimal)(lateMinutes - (penalty.LateDaysThreshold * 1440)); // Threshold converted to minutes
+                //            penaltyAmount = minutesWithPenalty * (penalty.PenaltyAmount); // Apply penalty per minute based on daily rate
+                //        }
+                //        else
+                //        {
+                //            penaltyAmount = 0; // No penalty if within the threshold
+                //        }
+
+                //        // Update the penalty object
+                //        penalty.PenaltyAmount = penaltyAmount;
+                //    }
+                //    else
+                //    {
+                //        // Create a new Penalty object if it doesn't exist
+                //        penalty = new Penalty
+                //        {
+                //            LateDaysThreshold = 0, // Set your desired threshold here (in days)
+                //            PenaltyAmount = 2, // Default penalty per day (for example, $2 per day)
+                //            CheckoutId = checkout.CheckoutId
+                //        };
+
+                //        // Apply penalty based on minutes
+                //        if (lateMinutes > penalty.LateDaysThreshold * 1440) // Threshold converted to minutes
+                //        {
+                //            var minutesWithPenalty = (decimal)(lateMinutes - (penalty.LateDaysThreshold * 1440)); // Threshold converted to minutes
+                //            penalty.PenaltyAmount = minutesWithPenalty * (penalty.PenaltyAmount); // Penalty per minute
+                //        }
+                //        else
+                //        {
+                //            penalty.PenaltyAmount = 0; // No penalty if within the threshold
+                //        }
+
+                //        // Add new penalty record
+                //        _context.Penalties.Add(penalty);
+                //    }
+
+                //    returnEntry.PenaltyAmount = penalty.PenaltyAmount;
+                //}
+                //else
+                //{
+                //    // No late minutes, no penalty
+                //    returnEntry.LateDays = 0;
+                //    returnEntry.PenaltyAmount = 0;
+                //} 
+                #endregion
+
+
                 _context.Returns.Add(returnEntry);
                 _context.Update(checkout.Book);
+                _context.Update(checkout);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: List all Penalty..
+        public async Task<IActionResult> Penalty()
+        {
+            var penalty = _context.Penalties
+                .Include(c => c.Checkout)
+                .Include(m => m.Checkout.Member)
+                .ToList();
+
+            return View("penalty", penalty);
         }
     }
 }
