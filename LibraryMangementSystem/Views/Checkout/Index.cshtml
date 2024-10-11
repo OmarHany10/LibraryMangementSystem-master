@@ -1,41 +1,71 @@
-﻿@model LibraryMangementSystem.Models.Checkout
+﻿@model IEnumerable<LibraryMangementSystem.Models.Checkout>
+
 @{
+
+    ViewData["Title"] = "GetAll";
+
     ViewData["Title"] = "Checkout";
 
 }
 
-<h2>Checkout Book</h2>
+<h1>GetAll</h1>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="bookId">Select Book</label>
-        <select asp-for="BookId" class="form-control" asp-items="@(new SelectList(ViewData["Books"] as IEnumerable<LibraryMangementSystem.Models.Book>, "BookId", "Title"))">
-            <option value="">-- Select a Book --</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="memberId">Select Member</label>
-        <select asp-for="MemberId" class="form-control" asp-items="@(new SelectList(ViewData["Members"] as IEnumerable<LibraryMangementSystem.Models.Member>, "MemberId", "FullName"))">
-            <option value="">-- Select a Member --</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="dueDate">Due Date</label>
-        <input asp-for="DueDate" class="form-control" type="date" />
-        <span asp-validation-for="DueDate" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Checkout Book</button>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckoutId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckoutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                Return
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckoutId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckoutDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                    <a href="/Checkout/Return?checkoutId=@item.CheckoutId">Return</a>
+                   
+            </td>
+        </tr>
 }
+    </tbody>
+</table>
