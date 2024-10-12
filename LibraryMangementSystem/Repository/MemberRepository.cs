@@ -27,6 +27,11 @@ namespace LibraryMangementSystem.Repository
             return context.Members.ToList();
         }
 
+        public Member GetByEmail(string email)
+        {
+            return context.Members.FirstOrDefault(m => m.Email == email);
+        }
+
         public Member GetByID(int id)
         {
             return context.Members.FirstOrDefault(m => m.MemberId == id);

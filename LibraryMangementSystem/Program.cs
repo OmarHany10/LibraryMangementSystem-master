@@ -24,6 +24,7 @@ namespace LibraryMangementSystem
 
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+            builder.Services.AddScoped<ICheckoutRepository, CheckoutRepository>();
 
             var app = builder.Build();
 

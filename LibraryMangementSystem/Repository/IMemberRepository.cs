@@ -8,6 +8,7 @@ namespace LibraryMangementSystem.Repository
         public void Delete(int id);
         public void Update(Member member);
         public Member GetByID(int id);
+        public Member GetByEmail(string email);
         public List<Member> GetAll();
 
         public void Save();
