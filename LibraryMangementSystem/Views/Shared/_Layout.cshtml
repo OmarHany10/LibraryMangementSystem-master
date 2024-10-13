@@ -57,13 +57,16 @@
                         else if (User.IsInRole("Members"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="MemberInformation">My Information</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="MemberInformation">Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="BorrowingHistory">My Borrowing History</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="BorrowingHistory">Borrowing History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="MyBorrowedBook">My BorrowedBook</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="MyBorrowedBook">Borrowed Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="BorrowABook">Available Book</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">SignOut</a>

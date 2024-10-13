@@ -11,6 +11,8 @@ namespace LibraryMangementSystem.Repository
         public Book GetById(int id);
         public List<Book> GetAll();
 
+        public List<Book> GetAllAvialable();
+
         public void Save();
 
     }

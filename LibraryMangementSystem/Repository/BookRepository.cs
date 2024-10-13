@@ -27,6 +27,12 @@ namespace LibraryMangementSystem.Repository
             return context.Books.ToList();
         }
 
+        public List<Book> GetAllAvialable()
+        {
+            return context.Books.Where(b => b.AvailableCopies > 0).ToList();
+        }
+
+       
         public Book GetById(int id)
         {
             return context.Books.FirstOrDefault(b => b.BookId == id);

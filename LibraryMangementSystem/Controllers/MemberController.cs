@@ -4,7 +4,10 @@ using LibraryMangementSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Net;
 
 namespace LibraryMangementSystem.Controllers
 {
@@ -14,12 +17,14 @@ namespace LibraryMangementSystem.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMemberRepository memberRepository;
         private readonly ICheckoutRepository checkoutRepository;
+        private readonly IBookRepository bookRepository;
 
-        public MemberController(UserManager<ApplicationUser> userManager, IMemberRepository memberRepository, ICheckoutRepository checkoutRepository)
+        public MemberController(UserManager<ApplicationUser> userManager, IMemberRepository memberRepository, ICheckoutRepository checkoutRepository, IBookRepository bookRepository)
         {
             this.userManager = userManager;
             this.memberRepository = memberRepository;
             this.checkoutRepository = checkoutRepository;
+            this.bookRepository = bookRepository;
         }
         public IActionResult MemberInformation()
         {
@@ -100,7 +105,42 @@ namespace LibraryMangementSystem.Controllers
             return View("MyBorrowedBook", borrowingHistories);
         }
 
+        public IActionResult BorrowABook()
+        {
+            List<Book> books = bookRepository.GetAllAvialable();
+            return View("BorrowABook", books);
+        }
+
         
+        public IActionResult BorrowDetails(int BookId)
+        {
+            Book book = bookRepository.GetById(BookId);
+            return View("BorrowDetails",book);
+        }
+
+        [HttpPost]
+        public IActionResult BorrowBook(int BookId, DateTime dueDate)
+        {
+            Book book = bookRepository.GetById(BookId);
+            string email = User.Identity.Name;
+            Member member = memberRepository.GetByEmail(email);
+
+            var checkout = new Checkout
+            {
+                BookId = book.BookId,
+                MemberId = member.MemberId,
+                CheckoutDate = DateTime.Now,
+                DueDate = dueDate,
+                ReturnDate = null,
+                Penalty = null
+            };
+            book.AvailableCopies -= 1;
+            checkoutRepository.Add(checkout);
+            checkoutRepository.Save();
+
+            return RedirectToAction("MyBorrowedBook");
+
+        }
 
     }
 }
