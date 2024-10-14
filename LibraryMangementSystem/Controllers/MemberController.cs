@@ -142,5 +142,21 @@ namespace LibraryMangementSystem.Controllers
 
         }
 
+        public IActionResult Search(string searchString)
+        {
+            List<Book> books = bookRepository.GetAllAvialable(); // Get all books first
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Filter books by title, author, or genre
+                books = books.Where(book =>
+                    book.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                    book.Author.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                    book.Genre.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+
+            return View("Search", books);
+        }
     }
 }
