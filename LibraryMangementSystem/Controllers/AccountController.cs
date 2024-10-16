@@ -20,6 +20,7 @@ namespace LibraryMangementSystem.Controllers
         }
         public IActionResult Register()
         {
+           
             return View("Register");
         }
 

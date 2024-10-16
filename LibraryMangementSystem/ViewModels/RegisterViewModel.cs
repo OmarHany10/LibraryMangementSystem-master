@@ -8,14 +8,14 @@ namespace LibraryMangementSystem.ViewModels
         public string UserName { get; set; }
 
         [Display(Name = "First Name")]
-        [Required(ErrorMessage ="*")]
+        [Required(ErrorMessage = "First Name Is Required")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Last Name Is Required")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Phone Is Required")]
         public string Phone {  get; set; }
 
         [Required(ErrorMessage = "*")]
@@ -29,7 +29,7 @@ namespace LibraryMangementSystem.ViewModels
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Date of Birth Is Required")]
         public DateTime DateOfBearth {  get; set; }
     }
 }
