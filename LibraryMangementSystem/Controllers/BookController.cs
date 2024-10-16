@@ -58,5 +58,10 @@ namespace LibraryMangementSystem.Controllers
 
             return View("Search", books);
         }
+
+        public IActionResult Delete(int id) {
+            bookRepository.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }

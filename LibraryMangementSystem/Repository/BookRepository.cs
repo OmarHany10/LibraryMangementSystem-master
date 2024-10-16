@@ -20,6 +20,7 @@ namespace LibraryMangementSystem.Repository
         {
             Book book = GetById(id);
             context.Remove(book);
+            context.SaveChanges();
         }
 
         public List<Book> GetAll()
