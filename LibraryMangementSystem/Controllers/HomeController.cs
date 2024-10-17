@@ -1,4 +1,5 @@
 using LibraryMangementSystem.Models;
+using LibraryMangementSystem.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,9 +9,12 @@ namespace LibraryMangementSystem.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBookRepository bookRepository;
+
+        public HomeController(ILogger<HomeController> logger, IBookRepository bookRepository)
         {
             _logger = logger;
+            this.bookRepository = bookRepository;
         }
 
         public IActionResult Index()
@@ -21,6 +25,12 @@ namespace LibraryMangementSystem.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult ExploreLibrary()
+        {
+            List<Book> books = bookRepository.GetAll();
+            return View(books);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

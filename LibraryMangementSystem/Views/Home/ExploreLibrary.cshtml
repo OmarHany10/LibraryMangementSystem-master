@@ -1,0 +1,27 @@
+﻿@model List<Book>
+
+@{
+    Layout = "layout2";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-3 mb-3">
+                <!-- Change column size to col-sm-6 for smaller cards -->
+                <div class="card" style="width: 100%; height: 100%; padding: 0.5rem;">
+                    <!-- Reduced padding -->
+                    <img src="/Images/Books/@item.Image" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.Title)" style="height: 440px; object-fit: cover;" /> <!-- Limit image height -->
+                    <div class="card-body" style="padding: 0.5rem;">
+                        <!-- Reduced card body padding -->
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h6>
+                        <p class="card-subtitle mb-1 text-muted">
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
