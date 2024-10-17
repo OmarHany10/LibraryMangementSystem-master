@@ -51,7 +51,7 @@ namespace LibraryMangementSystem.Controllers
             foreach (var checkout in checkouts)
             {
                 BorrowingHistoryViewModel borrowingHistory = new BorrowingHistoryViewModel();
-                if (checkout?.Penalty?.PenaltyAmount != null)
+                if (checkout.ReturnDate != null)
                 {
                     borrowingHistory.BookName = checkout.Book.Title;
                     borrowingHistory.CheckoutDate = checkout.CheckoutDate;
