@@ -4,45 +4,49 @@
     ViewBag.Title = "Search Books";
 }
 
-<h2>Search Books</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Search Books</h2>
 
-<form asp-action="Search" method="get">
-    <div class="form-group">
-        <label for="searchString">Search by Title, Author, or Genre:</label>
-        <input type="text" id="searchString" name="searchString" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
+    <form asp-action="Search" method="get" class="mb-4">
+        <div class="form-group">
+            <label for="searchString">Search by Title, Author, or Genre:</label>
+            <input type="text" id="searchString" name="searchString" class="form-control" placeholder="Enter search term" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary btn-block">Search</button>
+    </form>
 
-@if (Model != null && Model.Any())
-{
-    <h3>Search Results:</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Model)
-            {
-                <tr>
-                    <td>@book.Title</td>
-                    <td>@book.Author</td>
-                    <td>@book.Genre</td>
-                    <td>
-                        <a href="/Member/BorrowDetails?BookId=@book.BookId">Borrow</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No books found matching your search.</p>
-}
+    @if (Model != null && Model.Any())
+    {
+        <h3 class="text-center">Search Results:</h3>
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-6 col-md-3 mb-3">
+                        <!-- Change column size to col-sm-6 for smaller cards -->
+                        <div class="card" style="width: 100%; height: 100%; padding: 0.5rem;">
+                            <!-- Reduced padding -->
+                            <img src="/Images/Books/@item.Image" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.Title)" style="height: 440px; object-fit: cover;" /> <!-- Limit image height -->
+                            <div class="card-body" style="padding: 0.5rem;">
+                                <!-- Reduced card body padding -->
+                                <h6 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h6>
+                                <p class="card-subtitle mb-1 text-muted">
+                                    @Html.DisplayFor(modelItem => item.Author)
+                                </p>
+                                <a href="/Member/BorrowDetails?BookId=@item.BookId" class="btn btn-primary">Borrow</a>
 
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            No books found matching your search.
+        </div>
+    }
+</div>

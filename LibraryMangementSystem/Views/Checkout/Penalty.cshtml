@@ -8,50 +8,55 @@
 
 }
 
-<h1>GetAll</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Penalty Records</h1>
 
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="btn btn-light" style="background-color: #007bff; color: white;">Back to List</a>
+    </div>
+    <br />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PenaltyId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LateDaysThreshold)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PenaltyAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckoutId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Checkout.MemberId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark text-light">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PenaltyId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LateDaysThreshold)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PenaltyAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CheckoutId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Checkout.MemberId)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.PenaltyId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LateDaysThreshold)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PenaltyAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CheckoutId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Checkout.MemberId)
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PenaltyId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LateDaysThreshold)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PenaltyAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckoutId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Checkout.MemberId)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
