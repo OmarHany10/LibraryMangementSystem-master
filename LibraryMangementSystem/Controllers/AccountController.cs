@@ -51,7 +51,7 @@ namespace LibraryMangementSystem.Controllers
                     memberRepository.Save();
 
                     await signInManager.SignInAsync(applicationUser, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index2", "Home");
                 }
                 foreach(var error in result.Errors)
                 {
@@ -79,7 +79,7 @@ namespace LibraryMangementSystem.Controllers
                     if (found)
                     {
                         await signInManager.SignInAsync(applicationUser, loginViewModel.RememberMe);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index2", "Home");
                     }
                 }
                 ModelState.AddModelError("", "Incorrext Username or Password");

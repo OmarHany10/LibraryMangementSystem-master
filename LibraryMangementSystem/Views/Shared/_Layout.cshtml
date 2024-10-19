@@ -14,9 +14,20 @@
         <nav class="navbar navbar-expand-sm navbar-expand-lg  navbar-light bg-light border-bottom shadow-sm mb-3">
         <div class="container-fluid">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">
-                📚 Library Management
-            </a>
+           
+                @if (User.IsInRole("Admin") || User.IsInRole("Members") || User.IsInRole("Librarians"))
+                {
+                    <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index2">
+                        📚 Library Management
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">
+                        📚 Library Management
+                    </a>
+                }
+
 
             <!-- Toggler for Mobile -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
@@ -28,14 +39,15 @@
             <!-- Navbar Items -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Home Link -->
-                    <li class="nav-item">
-                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                            🏠 Home
-                        </a>
-                    </li>
+                  @* *@
                     @if (User.IsInRole("Admin"))
                     {
+                            <!-- Home Link -->
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index2">
+                                    🏠 Home
+                                </a>
+                            </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Book" asp-action="Index">📖 Books</a>
                         </li>
@@ -54,6 +66,12 @@
                     }
                     else if (User.IsInRole("Librarians"))
                     {
+                            <!-- Home Link -->
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index2">
+                                    🏠 Home
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Book" asp-action="Index">📖 Books</a>
                             </li>
@@ -69,6 +87,12 @@
                     }
                     else if (User.IsInRole("Members"))
                     {
+                            <!-- Home Link -->
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index2">
+                                    🏠 Home
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Member" asp-action="MemberInformation">👤 Information</a>
                             </li>
@@ -87,12 +111,18 @@
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">👤 Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">📝 Register</a>
-                        </li>
+                            <!-- Home Link -->
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                                    🏠 Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">👤 Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">📝 Register</a>
+                            </li>
                     }
                 </ul>
             </div>
