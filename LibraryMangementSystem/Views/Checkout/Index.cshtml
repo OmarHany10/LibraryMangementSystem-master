@@ -22,7 +22,7 @@
                 <th>@Html.DisplayNameFor(model => model.CheckoutId)</th>
                 <th>@Html.DisplayNameFor(model => model.CheckoutDate)</th>
                 <th>@Html.DisplayNameFor(model => model.DueDate)</th>
-                <th>@Html.DisplayNameFor(model => model.Member.FirstName)</th>
+                <th>Name</th>
                 <th>@Html.DisplayNameFor(model => model.Book.Title)</th>
                 <th>Return</th>
             </tr>
@@ -34,7 +34,10 @@
                     <td>@Html.DisplayFor(modelItem => item.CheckoutId)</td>
                     <td>@Html.DisplayFor(modelItem => item.CheckoutDate)</td>
                     <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Member.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Member.FirstName)
+                        @Html.Raw(" ")
+                        @Html.DisplayFor(modelItem => item.Member.LastName)
+                    </td>
                     <td>@Html.DisplayFor(modelItem => item.Book.Title)</td>
                     <td>
                         <a href="/Checkout/Return?checkoutId=@item.CheckoutId" class="btn btn-primary btn-sm">Return</a>

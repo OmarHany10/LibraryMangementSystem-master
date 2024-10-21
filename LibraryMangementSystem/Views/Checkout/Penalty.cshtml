@@ -32,7 +32,7 @@
                     @Html.DisplayNameFor(model => model.CheckoutId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Checkout.MemberId)
+                  Member Name
                 </th>
             </tr>
         </thead>
@@ -53,7 +53,9 @@
                         @Html.DisplayFor(modelItem => item.CheckoutId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Checkout.MemberId)
+                        @Html.DisplayFor(modelItem => item.Checkout.Member.FirstName)
+                        @Html.Raw(" ")
+                        @Html.DisplayFor(modelItem => item.Checkout.Member.LastName)
                     </td>
                 </tr>
             }
